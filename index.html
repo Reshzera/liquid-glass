@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <title>Liquid Glass — JS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        width: 100%;
+        height: 100%;
+        background: #111;
+
+        font-family: system-ui, sans-serif;
+        padding: 12px;
+      }
+      .hint {
+        color: #bbb;
+        font-size: 16px;
+        opacity: 0.85;
+        margin-bottom: 24px;
+      }
+      .container {
+        position: relative;
+        flex: 1;
+        display: flex;
+        min-width: 100%;
+        max-height: 100vh;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+      }
+      .background-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .my-glass {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 8px 16px;
+        border-radius: 8px;
+        backdrop-filter: url(#glass-distortion) blur(3px);
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5),
+          inset -1px -1px 1px 1px rgba(255, 255, 255, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hint">Apple Liquid Glass effect with SVG filters</div>
+    <div class="container">
+      <div class="my-glass">fasdasdfajksdfhasdjkfahsjkfas</div>
+      <img
+        class="background-img"
+        draggable="false"
+        src="https://assets.content.technologyadvice.com/xlarge_635694504561850572_4d04dc9a35.webp"
+      />
+      <img
+        class="background-img"
+        draggable="false"
+        src="https://i.imgur.com/icu9yIJ.jpeg"
+      />
+      <img
+        class="background-img"
+        draggable="false"
+        src="https://assets.content.technologyadvice.com/xlarge_635694504561850572_4d04dc9a35.webp"
+      />
+      <img
+        class="background-img"
+        draggable="false"
+        src="https://i.imgur.com/icu9yIJ.jpeg"
+      />
+    </div>
+
+    <svg style="display: none">
+      <filter
+        id="glass-distortion"
+        x="0%"
+        y="0%"
+        width="100%"
+        height="100%"
+        filterUnits="objectBoundingBox"
+      >
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.01 0.01"
+          numOctaves="1"
+          seed="5"
+          result="turbulence"
+        />
+
+        <feComponentTransfer in="turbulence" result="mapped">
+          <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
+          <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
+          <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
+        </feComponentTransfer>
+
+        <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
+
+        <feSpecularLighting
+          in="softMap"
+          surfaceScale="5"
+          specularConstant="1"
+          specularExponent="100"
+          lighting-color="white"
+          result="specLight"
+        >
+          <fePointLight x="-200" y="-200" z="300" />
+        </feSpecularLighting>
+
+        <feComposite
+          in="specLight"
+          operator="arithmetic"
+          k1="0"
+          k2="1"
+          k3="1"
+          k4="0"
+          result="litImage"
+        />
+
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="softMap"
+          scale="150"
+          xChannelSelector="R"
+          yChannelSelector="G"
+        />
+      </filter>
+    </svg>
+  </body>
+</html>
