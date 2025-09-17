@@ -89,7 +89,6 @@ function getDisplacementFilter({
                       0 1 0 0 0
                       0 0 0 0 0
                       0 0 0 1 0" result="displacedG"/>
-            <!-- base (sem aberração extra) para B -->
             <feDisplacementMap in="SourceGraphic" in2="displacementMap"
               scale="${strength}"
               xChannelSelector="R" yChannelSelector="G" result="dB"/>
