@@ -73,7 +73,6 @@ function getDisplacementFilter({
         <defs>
           <filter id="glass-distortion" color-interpolation-filters="sRGB">
             <feImage x="0" y="0" height="${height}" width="${width}" href="${dispMapURL}" result="displacementMap" />
-            <!-- R/G mais forte para o canal vermelho (aberração cromática) -->
             <feDisplacementMap in="SourceGraphic" in2="displacementMap"
               scale="${strength + chromaticAberration * 2}"
               xChannelSelector="R" yChannelSelector="G" result="dR"/>
@@ -82,7 +81,6 @@ function getDisplacementFilter({
                       0 0 0 0 0
                       0 0 0 0 0
                       0 0 0 1 0" result="displacedR"/>
-            <!-- um pouco menos para G -->
             <feDisplacementMap in="SourceGraphic" in2="displacementMap"
               scale="${strength + chromaticAberration}"
               xChannelSelector="R" yChannelSelector="G" result="dG"/>
