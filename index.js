@@ -68,7 +68,6 @@ function getDisplacementFilter({
   chromaticAberration = 0,
 }) {
   const dispMapURL = getDisplacementMap({ height, width, radius, depth });
-  //
   const svg = `<svg height="${height}" width="${width}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <filter id="glass-distortion" color-interpolation-filters="sRGB">
